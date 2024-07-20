@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "python-backend-template"
+version = "0.1.0"
+description = ""
+authors = ["Terri Jang <terricodes@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.1"
+pydantic = "^2.8.2"
+sqlmodel = "^0.0.20"
+pyjwt = "^2.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.11.0"
+ruff = "^0.5.3"
+black = "^24.4.2"
+pytest = "^8.2.2"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+exclude = ["README.md"]
+
+[tool.ruff.lint]
+ignore = ["E203", "E302", "E305", "E401", "E402", "F403", "W503"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.black]
+line-length = 120

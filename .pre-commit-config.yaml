@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-toml
+      - id: check-yaml
+        args:
+          - --unsafe
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.5.3
+    hooks:
+      # Linter
+      - id: ruff
+        args: ["--config=pyproject.toml"]
+      # Formatter
+      - id: ruff-format
+        args: ["--config=pyproject.toml"]
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.1
+    hooks:
+      - id: mypy
+  - repo: local
+    hooks:
+      - id: unit test
+        name: unit test
+        entry: python3 -m pytest -v test
+        language: system
+        exclude: doc/|scripts/|tool/
+        types: [python]
