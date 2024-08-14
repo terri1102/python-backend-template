@@ -2,16 +2,7 @@
 - basic: 소스 코드 없이 파이썬 개발 환경 설정(poetry, linter, formatter, pre-commit) 파일만 있음. FastAPI, SQLModel, pyJWT 등 사용하지 않는다면 디펜던시 제거 후 개발하기
 - main: FastAPI로 API 서버 개발을 위한 템플릿
 
-# 백엔드 개발 순서
-이 템플릿은 FastAPI 백엔드 개발을 위한 기본 세팅 템플릿이며, 아래의 프로젝트 예시 구조를 따름
-
 ## 사용하는 dependency
-공통
-- FastAPI
-- Pydantic
-- SQLModel
-- pyJWT
-
 개발 환경
 - black = "^24.4.2" -> pyproject.toml
 - pytest = "^8.2.2"
@@ -20,40 +11,6 @@
 - mypy = "^1.10.1" -> pyproject.toml
 - importlib-metadata = "4.13.0"
 
-
-### 프로젝트 예시 구조
-```bash
-.
-├── app
-│   ├── api
-│   │   ├── __init__.py
-│   │   ├── dependencies.py
-│   │   └── v1
-│   │       ├── endpoints
-│   │       │   ├── __init__.py
-│   │       │   ├── login.py
-│   │       │   └── users.py
-│   │       └── router.py
-│   ├── core
-│   │   ├── __init__.py
-│   │   ├── config.py
-│   │   ├── db.py
-│   │   └── security.py
-│   ├── main.py
-│   ├── models
-│   │   ├── auth.py
-│   │   └── user.py
-│   ├── tests
-│   │   └── api
-│   └── utils
-│       ├── auth_utils.py
-│       └── email_utils.py
-├── .env
-└── pyproject.toml
-
-10 directories, 16 files
-
-```
 
 ## 0. 이 템플릿으로 프로젝트 실행하기
 - git clone
@@ -134,24 +91,3 @@ repos:
 poetry install
 pre-commit install
 ```
-
-
-## 3. Config에 시크릿키, 아이디 등 세팅 하기
-1. app 디렉토리 만들기
-2. app/core의 config를 먼저 만들고 settings 클래스 작성
-- config.py에 들어가야 하는 내용
-- settings
-  (parse_cors, api v1, secret_key, domain, env, server_host,
-  db, db_uri,
-  smtp)
-3. app/core의 secrets.py
-4. app/core db.py # connection 정보
-- 아직 DB 결정이 안 되었다면 DB는 제외
-
-## 4. main.py 작성하고 uvicorn run으로 서버 잘 뜨나 확인
-`uvicorn app.main:app --host 0.0.0.0 --port 8888`
-
-## 5. 도커 파일 작성
-
-## 6. 기타
-- .dockerignore, .gitignore 등 작성
