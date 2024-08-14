@@ -9,10 +9,12 @@ repos:
           - --unsafe
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
   - repo: https://github.com/psf/black
     rev: 24.4.2
     hooks:
       - id: black
+
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.5.3
     hooks:
@@ -27,15 +29,22 @@ repos:
     rev: v1.10.0
     hooks:
       - id: python-check-blanket-noqa
+
+  # mypy uses configuration in pyproject.toml
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.10.1
     hooks:
       - id: mypy
+        additional_dependencies:
+        - "pydantic>=1.10.4"
+
   - repo: local
     hooks:
-      - id: unit test
+      - id: unit-test
         name: unit test
-        entry: python3 -m pytest -v test
+        entry: python3 -m pytest -v
         language: system
         exclude: doc/|scripts/|tool/
         types: [python]
+        pass_filenames: false
+        always_run: true
