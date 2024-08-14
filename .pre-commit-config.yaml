@@ -38,6 +38,7 @@ repos:
         additional_dependencies:
         - "pydantic>=1.10.4"
         - pydantic-settings
+        - sqlmodel
 
   - repo: local
     hooks:
