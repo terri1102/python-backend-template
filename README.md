@@ -1,6 +1,7 @@
 # 브랜치별 템플릿 종류
 - basic: 소스 코드 없이 파이썬 개발 환경 설정(poetry, linter, formatter, pre-commit) 파일만 있음. FastAPI, SQLModel, pyJWT 등 사용하지 않는다면 디펜던시 제거 후 개발하기
 - main: FastAPI로 API 서버 개발을 위한 템플릿
+- webdev: 웹개발을 위한 nginx, db, login 기능이 포함된 템플릿
 
 # 백엔드 개발 순서
 이 템플릿은 FastAPI 백엔드 개발을 위한 기본 세팅 템플릿이며, 아래의 프로젝트 예시 구조를 따름
