@@ -37,6 +37,7 @@ repos:
       - id: mypy
         additional_dependencies:
         - "pydantic>=1.10.4"
+        - pydantic-settings
 
   - repo: local
     hooks:
