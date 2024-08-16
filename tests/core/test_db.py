@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from app.models.user import User, UserCreate
-from app.api.v1.endpoints.users import create_new_user
+from app.api.v1.routes.users import create_new_user
 
 
 def test_db_connection(db_session: Session) -> None:

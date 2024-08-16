@@ -30,7 +30,7 @@
 │   │   ├── __init__.py
 │   │   ├── dependencies.py
 │   │   └── v1
-│   │       ├── endpoints
+│   │       ├── routes
 │   │       │   ├── __init__.py
 │   │       │   ├── login.py
 │   │       │   └── users.py
