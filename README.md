@@ -57,8 +57,10 @@
 
 ## 0. 이 템플릿으로 프로젝트 실행하기
 - git clone
+- pyproject.toml의 프로젝트명 등 기본 설정 변경
 - poetry install
 - pre-commit install
+- poetry shell
 
 
 ## 1. 프로젝트 생성 및 poetry 설정
