@@ -3,6 +3,13 @@ from pydantic import EmailStr
 from sqlmodel import SQLModel, Field
 
 
+class UserBase(SQLModel):
+    email: EmailStr = Field(unique=True, index=True, max_length=255)
+    is_active: bool = True
+    is_superuser: bool = False
+    full_name: str | None = Field(default=None, max_length=255)
+
+
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     full_name: str | None = Field(default=None, min_length=1, max_length=255)
@@ -23,3 +30,8 @@ class UserUpdate(SQLModel):
     email: str | None = None
     full_name: str | None = None
     password: str | None = None
+
+
+# Properties to return via API, id is always required
+class UserPublic(UserBase):
+    id: int

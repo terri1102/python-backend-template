@@ -10,14 +10,16 @@ package-mode = false
 python = "^3.10"
 fastapi = "^0.111.1"
 pydantic = "^2.8.2"
-sqlmodel = "^0.0.20"
 python-dotenv = "^1.0.1"
 pyjwt = "^2.9.0"
 pydantic-settings = "^2.4.0"
 testcontainers = "^4.7.2"
-psycopg = "^3.2.1"
-psycopg2 = "^2.9.9"
 bcrypt = "^4.2.0"
+pytest = "^8.3.2"
+emails = "^0.6"
+sqlmodel = "^0.0.21"
+psycopg = {extras = ["binary"], version = "^3.2.1"}
+psycopg2 = "^2.9.9"
 
 
 [tool.poetry.group.dev.dependencies]
