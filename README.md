@@ -1,101 +1,99 @@
-# 브랜치별 템플릿 종류
-- basic: 소스 코드 없이 파이썬 개발 환경 설정(poetry, linter, formatter, pre-commit) 파일만 있음. FastAPI, SQLModel, pyJWT 등 사용하지 않는다면 디펜던시 제거 후 개발하기
-- main: FastAPI로 API 서버 개발을 위한 템플릿
+# FastAPI Backend Development Template
+This template provides a basic setup for FastAPI backend development.
+This template is influenced by https://github.com/fastapi/full-stack-fastapi-template.
 
-# 백엔드 개발 순서
-이 템플릿은 FastAPI 백엔드 개발을 위한 기본 세팅 템플릿이며, 아래의 프로젝트 예시 구조를 따름
+## Branch Overview
+- **basic**: Contains only the Python development environment setup (Poetry, linter, formatter, pre-commit) without any source code. If FastAPI, SQLModel, pyJWT, etc., are not needed, remove the unnecessary dependencies before starting development.
+- **main**: A template for developing an API server using FastAPI. It is a simple version for API server.
+- **webdev**: A template for developing an web API server using FastAPI with more functionalities.
 
-## 사용하는 dependency
-공통
+## Backend Development Steps
+This template follows a standard project structure for FastAPI backend development, as outlined below.
+
+### Dependencies Used
+#### Common
 - FastAPI
 - Pydantic
 - SQLModel
 - pyJWT
 
-개발 환경
-- black = "^24.4.2" -> pyproject.toml
+#### Development Environment
+- black = "^24.4.2" (in `pyproject.toml`)
 - pytest = "^8.2.2"
 - pre-commit = "^3.7.1"
-- ruff 0.5.3 -> pyproject.toml
-- mypy = "^1.10.1" -> pyproject.toml
+- ruff = "0.5.3" (in `pyproject.toml`)
+- mypy = "^1.10.1" (in `pyproject.toml`)
 - importlib-metadata = "4.13.0"
 
-
-### 프로젝트 예시 구조
+### Example Project Structure
 ```bash
 .
 ├── app
-│   ├── api
-│   │   ├── __init__.py
-│   │   ├── dependencies.py
-│   │   └── v1
-│   │       ├── endpoints
-│   │       │   ├── __init__.py
-│   │       │   ├── login.py
-│   │       │   └── users.py
-│   │       └── router.py
-│   ├── core
-│   │   ├── __init__.py
-│   │   ├── config.py
-│   │   ├── db.py
-│   │   └── security.py
-│   ├── main.py
-│   ├── models
-│   │   ├── auth.py
-│   │   └── user.py
-│   ├── tests
-│   │   └── api
-│   └── utils
-│       ├── auth_utils.py
-│       └── email_utils.py
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── dependencies.py
+│   │   └── v1
+│   │       ├── endpoints
+│   │       │   ├── __init__.py
+│   │       │   ├── login.py
+│   │       │   └── users.py
+│   │       └── router.py
+│   ├── core
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── db.py
+│   │   └── security.py
+│   ├── main.py
+│   ├── models
+│   │   ├── auth.py
+│   │   └── user.py
+│   ├── tests
+│   │   └── api
+│   └── utils
+│       ├── auth_utils.py
+│       └── email_utils.py
 ├── .env
 └── pyproject.toml
 
 10 directories, 16 files
-
 ```
 
-## 0. 이 템플릿으로 프로젝트 실행하기
-- git clone
-- pyproject.toml의 프로젝트명 등 기본 설정 변경
-- poetry install
-- pre-commit install
-- poetry shell
+## 0. Running the Project with this Template
+1. Clone the repository.
+2. Update `pyproject.toml` with your project details.
+3. Run `poetry install`.
+4. Set up pre-commit hooks with `pre-commit install`.
+5. Activate the virtual environment with `poetry shell`.
 
+## 1. Project Setup and Poetry Configuration
+1. Create the root project directory.
+2. Initialize the project with `poetry init`:
+   - Set the project name, Python version, and install basic modules.
+   - If the project won't be a package, set `package-mode = false`.
+3. Add dependencies as needed:
+   ```bash
+   poetry add {module}
+   poetry install
+   ```
+   For dev dependencies (like linters, formatters, and testing tools), use the `--dev` flag:
+   ```bash
+   poetry add --dev flake8
+   ```
 
-## 1. 프로젝트 생성 및 poetry 설정
-1. 프로젝트 루트 디렉토리 생성
+## 2. Setting Up Linter, Formatter, and Pre-commit Hooks
+To install dev dependencies, use the `--dev` flag. This allows separating dev dependencies during installation. For production, it's recommended to freeze versions using the `--prod` flag. Write specific configurations in the `.pyproject.toml`.
 
-2. poetry init으로 시작
-- 프로젝트명, 파이썬 버전, 기본 모듈 설치
-- 패키지로 설치 가능하게 할 것이 아니면 package-mode = false 설정
-
-3. 이 프로젝트에서 사용할 것 같은 dependency 설치
+To install without dev dependencies:
 ```bash
-poetry add {module}
-poetry install
-```
-- dev용 dependency는 `--dev` flag로 설치(주로 linter, formatter, test)
-```bash
-poetry add --dev flake8
-```
-
-## 2. Linter, formatter, pre-commit hook 등 기존에 사용하던 설정 추가
-위에서 말한 것처럼 `--dev` flag를 넣어서 add하자.
-그러면 나중에 `poetry install`시 그룹을 구분해서 설치할 수 있다.
-참고로 prod도 따로 `--prod`를 붙여서 버전을 freeze하는 것도 권장된다.
-기본 설정대로 add하면 특정 버전 이상을 다운받기 때문에 freeze하는 게 좋을듯
-`.pyproject.toml`에 세부 설정도 작성하자.
-
-```
 poetry install --without dev,docs
 ```
 
-## 2-2. pre-commit
-- 이제 `.pre-commit-config.yaml` 을 생성하고 hook을 작성하자
-- pre-commit은 커밋하기 전에 파일을 검사해주는 hook으로 큰 파일이 포함되었는지 등 다양한 검사 가능함
-- 최신 버전: 3.7.1
-```
+### Pre-commit Hook Setup
+1. Create a `.pre-commit-config.yaml` file and define hooks.
+2. Pre-commit hooks help check files before committing (e.g., checking for large files, formatting issues, etc.).
+
+Example `.pre-commit-config.yaml`:
+```yaml
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -130,30 +128,29 @@ repos:
       - id: pytest
 ```
 
-
-이제 .pyproject.toml과 .pre-commit-config.yaml이 작성되었다면 poetry install로 dependency들을 설치하고 pre-commit install 해주자
-```
+Install the dependencies and pre-commit hooks:
+```bash
 poetry install
 pre-commit install
 ```
 
+## 3. Configure Secret Keys and Settings
+1. Create the `app` directory.
+2. In `app/core`, create `config.py` and define the settings class.
+   - Include configurations such as CORS, API version, secret keys, domain, environment variables, database details, and SMTP.
+3. Set up `secrets.py` for handling sensitive data.
+4. Configure `db.py` for database connection information (exclude if no database is required yet).
 
-## 3. Config에 시크릿키, 아이디 등 세팅 하기
-1. app 디렉토리 만들기
-2. app/core의 config를 먼저 만들고 settings 클래스 작성
-- config.py에 들어가야 하는 내용
-- settings
-  (parse_cors, api v1, secret_key, domain, env, server_host,
-  db, db_uri,
-  smtp)
-3. app/core의 secrets.py
-4. app/core db.py # connection 정보
-- 아직 DB 결정이 안 되었다면 DB는 제외
+## 4. Test with `main.py` and Start the Server
+Create `main.py` and run the server to ensure everything works:
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8888
+```
 
-## 4. main.py 작성하고 uvicorn run으로 서버 잘 뜨나 확인
-`uvicorn app.main:app --host 0.0.0.0 --port 8888`
+## 5. Dockerfile Setup
+Write a Dockerfile to containerize the application.
 
-## 5. 도커 파일 작성
+## 6. Miscellaneous
+Add `.dockerignore`, `.gitignore`, and other necessary configuration files.
 
-## 6. 기타
-- .dockerignore, .gitignore 등 작성
+This structure and setup will help you get started quickly with FastAPI backend development.
