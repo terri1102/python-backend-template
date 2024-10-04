@@ -8,11 +8,8 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.111.1"
 pydantic = "^2.8.2"
-sqlmodel = "^0.0.20"
 python-dotenv = "^1.0.1"
-pyjwt = "^2.9.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -46,8 +43,3 @@ disallow_untyped_decorators = false
 strict = true
 ignore_missing_imports = true
 no_namespace_packages = true
-
-[tool.pytest.ini_options]
-testpaths = [
-    "tests"
-]
