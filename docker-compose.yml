@@ -1,0 +1,55 @@
+services:
+  app:
+    build: .
+    command: >
+     sh -c "./wait-for-it.sh mysql:3306 -- &&
+            poetry run python manage.py migrate &&
+            poetry run python manage.py runserver 0.0.0.0:8000 "
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - my_app1-network
+    restart: always
+
+  mysql:
+    image: mysql:8.0.33
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:${DB_PORT}"
+    networks:
+      - my_app1-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:7.0.5
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - my_app1-network
+    volumes:
+      - redis-data:/data
+
+networks:
+  my_app1-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:

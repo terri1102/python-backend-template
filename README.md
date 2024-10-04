@@ -2,6 +2,7 @@
 - basic: 소스 코드 없이 파이썬 개발 환경 설정(poetry, linter, formatter, pre-commit) 파일만 있음.
 - main: FastAPI로 API 서버 개발을 위한 템플릿
 - webdev: 웹개발을 위한 nginx, db, login 기능이 포함된 템플릿
+- django-app: django 기반 앱 템플릿
 
 ## 사용하는 dependency
 개발 환경
@@ -91,4 +92,9 @@ repos:
 ```
 poetry install
 pre-commit install
+```
+
+## 3. Django project 생성
+```bash
+django-admin startproject {project_name}
 ```
